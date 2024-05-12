@@ -1,11 +1,11 @@
-package com.ubb.budgetwise_budgets.model.dto;
+package com.ubb.budgetwise_expenses.model.dto;
 
 import lombok.Builder;
 
 import java.util.List;
 
 @Builder
-public record BudgetDto(
+public record BudgetDto (
     String id,
     String name,
     Float amount,

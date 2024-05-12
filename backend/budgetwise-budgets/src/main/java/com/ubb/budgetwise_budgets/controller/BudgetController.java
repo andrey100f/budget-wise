@@ -2,6 +2,7 @@ package com.ubb.budgetwise_budgets.controller;
 
 import com.ubb.budgetwise_budgets.model.dto.AddBudgetDto;
 import com.ubb.budgetwise_budgets.model.dto.BudgetDto;
+import com.ubb.budgetwise_budgets.model.dto.ExpenseDto;
 import com.ubb.budgetwise_budgets.service.BudgetService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

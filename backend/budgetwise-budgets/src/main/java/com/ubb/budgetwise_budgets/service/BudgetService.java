@@ -1,8 +1,9 @@
 package com.ubb.budgetwise_budgets.service;
 
-import com.ubb.budgetwise_budgets.model.Budget;
+import com.ubb.budgetwise_budgets.client.ExpenseClient;
 import com.ubb.budgetwise_budgets.model.dto.AddBudgetDto;
 import com.ubb.budgetwise_budgets.model.dto.BudgetDto;
+import com.ubb.budgetwise_budgets.model.dto.ExpenseDto;
 import com.ubb.budgetwise_budgets.model.mapper.BudgetMapper;
 import com.ubb.budgetwise_budgets.repository.BudgetRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,16 +19,37 @@ public class BudgetService {
 
     private final BudgetRepository budgetRepository;
     private final BudgetMapper budgetMapper;
+    private final ExpenseClient expenseClient;
 
     public List<BudgetDto> getAllBudgets() {
         return this.budgetRepository.findAll().stream()
             .map(this.budgetMapper::mapToDto)
+            .map(budgetDto -> {
+                List<ExpenseDto> expenses = this.expenseClient.findExpensesByBudget(budgetDto.id());
+                return BudgetDto.builder()
+                    .id(budgetDto.id())
+                    .name(budgetDto.name())
+                    .amount(budgetDto.amount())
+                    .createdAt(budgetDto.createdAt())
+                    .expenses(expenses)
+                    .build();
+            })
             .toList();
     }
 
     public BudgetDto getBudgetById(String id) {
         return this.budgetRepository.findById(id)
             .map(this.budgetMapper::mapToDto)
+            .map(budgetDto -> {
+                List<ExpenseDto> expenses = this.expenseClient.findExpensesByBudget(budgetDto.id());
+                return BudgetDto.builder()
+                    .id(budgetDto.id())
+                    .name(budgetDto.name())
+                    .amount(budgetDto.amount())
+                    .createdAt(budgetDto.createdAt())
+                    .expenses(expenses)
+                    .build();
+            })
             .orElseThrow(() -> new NoSuchElementException("Budget with id " + id + " not found"));
     }
 
