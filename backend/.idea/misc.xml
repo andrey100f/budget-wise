@@ -5,6 +5,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/budgetwise-budgets/pom.xml" />
+        <option value="$PROJECT_DIR$/budgetwise-config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/budgetwise-discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/budgetwise-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/budgetwise-expenses/pom.xml" />
       </list>
     </option>
   </component>

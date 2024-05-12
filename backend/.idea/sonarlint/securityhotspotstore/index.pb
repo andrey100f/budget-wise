@@ -19,3 +19,15 @@ Vbudgetwise-budgets/src/main/java/com/ubb/budgetwise_budgets/service/BudgetServi
 Wbudgetwise-budgets/src/main/java/com/ubb/budgetwise_budgets/model/dto/AddBudgetDto.java,7\e\7e397f93b6a7635f65b2203922a8c5053473f218
 í
 bbudgetwise-budgets/src/main/java/com/ubb/budgetwise_budgets/controller/GlobalExceptionHandler.java,8\e\8e762338e600e80bbe384beea540ce0d69795a47
+û
+nbudgetwise-config-server/src/main/java/com/ubb/budgetwise_config_server/BudgetwiseConfigServerApplication.java,0\1\01546a633f1f282040cff5af09fed5d69b0a1344
+ì
+cbudgetwise-discovery/src/main/java/com/ubb/budgetwise_discovery/BudgetwiseDiscoveryApplication.java,d\b\db8fe1360f3185cd5e1e22316f08be3fbc7601cb
+ç
+]budgetwise-gateway/src/main/java/com/ubb/budgetwise_gateway/BudgetwiseGatewayApplication.java,0\4\0438e1cb4c74baccb8989af6b599ebca34f1d32a
+
+Obudgetwise-gateway/src/main/java/com/ubb/budgetwise_gateway/TestController.java,2\6\26a883b9099002f17b1f872fbf9036bd6e175c68
+J
+budgetwise-gateway/pom.xml,2\8\2802dfada6e2beb8c21bed1d6cd5815e3ad23752
+K
+budgetwise-expenses/pom.xml,8\b\8b2c84e7671429de632b929d1975bd5e34492ce5
