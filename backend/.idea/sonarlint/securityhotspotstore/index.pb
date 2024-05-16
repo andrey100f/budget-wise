@@ -31,8 +31,6 @@ K
 budgetwise-expenses/pom.xml,8\b\8b2c84e7671429de632b929d1975bd5e34492ce5
 €
 Pbudgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/model/Expense.java,2\3\23298e2740b478bfb76ac9e1bb2f50f1a611953f
-
-Obudgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/model/Budget.java,1\f\1fd08324897cb745177a39f484286a558a4f3652
 †
 Vbudgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/model/dto/BudgetDto.java,0\d\0de057844180df10b111b104a1403e6565ac4f1c
 ‡
@@ -53,3 +51,17 @@ _budgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/controller/Expens
 Zbudgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/model/dto/AddExpenseDto.java,f\7\f7b11380c558eddd4d36002449f56812670f7842
 ”
 dbudgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/controller/GlobalExceptionHandler.java,0\c\0c62cf2854caea846b4da268d88abc186b7fea8e
+H
+budgetwise-users/pom.xml,c\6\c613d8958f1e819c054e7d794b7f80314bf83ac4
+w
+Gbudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/User.java,f\e\fe5b970642205d585ff83bd3521a948260689fe4
+~
+Nbudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/dto/UserDto.java,b\0\b02ccfab24335e3dbddb0b172dca97999ea35c0f
+„
+Tbudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/mapper/UserMapper.java,8\e\8e74717f84aa52fd96a1a7355cae033ec8825b9c
+†
+Vbudgetwise-users/src/main/java/com/ubb/budgetwise_users/repository/UserRepository.java,7\3\730660e8a15cec55277cf4abc40da91a47cde8f9
+€
+Pbudgetwise-users/src/main/java/com/ubb/budgetwise_users/service/UserService.java,6\a\6ac7ce50ae2332e072eb6c2ef819b74814fe92ed
+†
+Vbudgetwise-users/src/main/java/com/ubb/budgetwise_users/controller/UserController.java,7\4\74b7e79abca1d27af0325792c239fe15e760292f

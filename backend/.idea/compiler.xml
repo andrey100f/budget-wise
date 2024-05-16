@@ -11,7 +11,7 @@
         <module name="budgetwise-config-server" />
         <module name="budgetwise-gateway" />
       </profile>
-      <profile name="Annotation profile for budgetwise-expenses" enabled="true">
+      <profile name="Annotation profile for budgetwise-users" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -23,6 +23,7 @@
         </processorPath>
         <module name="budgetwise-expenses" />
         <module name="budgetwise-budgets" />
+        <module name="budgetwise-users" />
       </profile>
     </annotationProcessing>
   </component>
@@ -33,6 +34,7 @@
       <module name="budgetwise-discovery" options="-parameters" />
       <module name="budgetwise-expenses" options="-parameters" />
       <module name="budgetwise-gateway" options="-parameters" />
+      <module name="budgetwise-users" options="-parameters" />
     </option>
   </component>
 </project>

@@ -20,3 +20,7 @@ spring:
           uri: http://localhost:8090
           predicates:
             - Path=/api/expenses/**
+        - id: users
+          uri: http://localhost:8060
+          predicates:
+              - Path=/api/users/**
