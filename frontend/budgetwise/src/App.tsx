@@ -1,21 +1,18 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-
-// Routes
-import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
-import ExpensesPage, { expensesAction, expensesLoader } from "./pages/ExpensesPage";
-import BudgetPage, { budgetAction, budgetLoader } from "./components/BudgetPage";
-import Error from "./pages/Error";
-
-// Library
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
-// Layouts
-import Main, { mainLoader } from "./layouts/Main";
+import Dashboard from "./pages/Dashboard";
+import ExpensesPage from "./pages/ExpensesPage";
+import BudgetPage from "./pages/BudgetPage";
+import Error from "./pages/Error";
+import Main from "./layouts/Main";
+import Register from "./components/Register";
 
-// Actions
 import { logoutAction } from "./actions/logout";
-import { deleteBudget } from "./actions/deleteBudget";
+import { mainLoader, dashboardLoader, expensesLoader, budgetLoader, editLoader } from "./utils/loaders";
+import { registerAction, budgetAction, dashboardAction, expensesAction } from "./utils/actions";
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -32,17 +29,24 @@ const router = createBrowserRouter([
         errorElement: <Error />
       },
       {
+        path: "register",
+        element: <Register />,
+        action: registerAction,
+        errorElement: <Error />
+      },
+      {
+        path: "edit",
+        element: <Register />,
+        loader: editLoader,
+        action: registerAction,
+        errorElement: <Error />
+      },
+      {
         path: "budget/:id",
         element: <BudgetPage />,
         loader: budgetLoader,
         action: budgetAction,
         errorElement: <Error />,
-        children: [
-          {
-            path: "delete",
-            action: deleteBudget
-          }
-        ]
       },
       {
         path: "expenses",
@@ -56,7 +60,7 @@ const router = createBrowserRouter([
         action: logoutAction
       }
     ]
-  }
+  },
 ]);
 
 function App() {
@@ -64,7 +68,7 @@ function App() {
   return (
     <div>
       <RouterProvider router={router} />
-      <ToastContainer />
+      <ToastContainer theme="dark" />
     </div> 
   )
 }

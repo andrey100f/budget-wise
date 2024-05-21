@@ -1,17 +1,14 @@
-// react imports
-import { useEffect, useRef } from "react";
-
-// react routar imports
+import React, { useEffect } from "react";
 import { useFetcher } from "react-router-dom";
-
-// library imports
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
-function AddExpenseForm({ budgets }) {
+import { Budget } from "../utils/interfaces";
+
+function AddExpenseForm({ budgets }: { budgets: Budget[] }) {
     const fetcher = useFetcher();
     const isSubmitting = fetcher.state === "submitting";
-    const formRef = useRef();
-    const focusRef = useRef();
+    const formRef = React.useRef() as React.MutableRefObject<HTMLFormElement>;
+    const focusRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
 
     useEffect(() => {
         if(!isSubmitting) {
@@ -38,7 +35,7 @@ function AddExpenseForm({ budgets }) {
 
                     <div className="grid-xs">
                         <label htmlFor="newExpenseAmount">Amount</label>
-                        <input type="number" step="0.01" inputMode="decimal" name="newExpenseAmount" id="newExpenseAmount" placeholder="e.g. 3.50" required />
+                        <input type="number" step="0.01" inputMode="decimal" name="newExpenseAmount" id="newExpenseAmount" placeholder="e.g. 3.50" required ref={focusRef} />
                     </div>
                 </div>
 
@@ -46,7 +43,7 @@ function AddExpenseForm({ budgets }) {
                     <label htmlFor="newExpenseBudget">Budget Category</label>
                     <select name="newExpenseBudget" id="newExpenseBudget" required>
                         {
-                            budgets.sort((a, b) => a.createdAt - b.createdAt).map((budget) => {
+                            budgets.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)).map((budget) => {
                                 return (
                                     <option key={budget.id} value={budget.id}>{budget.name}</option>
                                 );

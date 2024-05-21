@@ -1,86 +1,16 @@
 // react-reoater-dom functions
 import { Link, useLoaderData } from "react-router-dom";
 
-// Library
-import { toast } from "react-toastify";
-
-// Components
 import Intro from "../components/Intro";
 import AddBudgetForm from "../components/AddBudgetForm";
 import AddExpenseFrom from "../components/AddExpenseForm";
 import BudgetItem from "../components/BudgetItem";
 import Table from "../components/Table";
 
-// helper functions
-import { createBudget, createExpense, deleteItem, fetchData, wait } from "../helpers";
-
-// loader
-export function dashboardLoader() {
-    const username = fetchData("username");
-    const budgets = fetchData("budgets");
-    const expenses = fetchData("expenses");
-    return { username, budgets, expenses };
-
-}
-
-// action
-export async function dashboardAction({ request }) {
-    const data = await request.formData();
-    const {_action, ...values} = Object.fromEntries(data);
-
-    // new user submisiion
-    if(_action === "newUser") {
-        try {
-            localStorage.setItem("username", JSON.stringify(values.username));
-            return toast.success(`Welcome ${values.username}!`);
-        }
-        catch (error) {
-            throw new Error("There was a problem creating your account...");
-        }
-    }
-
-    if(_action === "createBudget") {
-        try {
-            // create budget
-            createBudget({name: values.newBudget, ammount: values.newBudgetAmount});
-
-            return toast.success(`Budget created!`);
-        }
-        catch(error) {
-            throw new Error("There was a problem creating your budget..."); 
-        }
-    }
-
-    if(_action === "createExpense") {
-        try {
-            // create expense
-            createExpense({
-                name: values.newExpense, 
-                ammount: values.newExpenseAmount, 
-                budgetId: values.newExpenseBudget
-            });
-
-            return toast.success(`Expense ${values.newExpense} created!`);
-        }
-        catch(error) {
-            throw new Error("There was a problem creating your expense..."); 
-        }
-    }
-
-    if(_action === "deleteExpense") {
-        try {
-            deleteItem({key: "expenses", id: values.expenseId});
-            return toast.success(`Expense deleted!`);
-        }
-        catch(error) {
-            throw new Error("There was a problem deleting your expense..."); 
-        }
-    }
-
-}
+import { DashboardLoaderData } from "../utils/interfaces";
 
 function Dashboard() {
-    const { username, budgets, expenses } = useLoaderData();
+    const { username, budgets, expenses } = useLoaderData() as DashboardLoaderData;
 
     return (
         <>
@@ -108,7 +38,7 @@ function Dashboard() {
                                     expenses && expenses.length > 0 && (
                                         <div className="grid-md">
                                             <h2>Recent Expenses</h2>
-                                            <Table expenses={expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 8)} />
+                                            <Table expenses={expenses.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0, 8)} />
 
                                             {expenses.length > 8 && (
                                                 <Link to="/expenses" className="btn btn--dark">View all expenses</Link>

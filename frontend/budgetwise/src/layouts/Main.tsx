@@ -1,24 +1,10 @@
-// react-reoater-dom functions
 import { Outlet, useLoaderData } from "react-router-dom";
 
-// assets
-import wave from "../assets/wave.svg";
-
-// Components
 import Nav from "../components/Nav";
-
-// helper functions
-import { fetchData } from "../helpers";
-
-// loader
-export function mainLoader() {
-    const username = fetchData("username");
-    return { username };
-
-}
+import { MainLoaderData } from "../utils/interfaces";
 
 function Main() {
-    const { username } = useLoaderData();
+    const { username } = useLoaderData() as MainLoaderData;
 
     return (
         <div className="layout">
@@ -26,8 +12,6 @@ function Main() {
             <main>
                 <Outlet />
             </main>
-            <img src={wave} alt="" />
-
         </div>
     );
 }

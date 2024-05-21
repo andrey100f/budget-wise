@@ -1,24 +1,18 @@
-// React imports
-import { useEffect, useRef } from "react";
-
-// React Router imports
-import { Form, useFetcher } from "react-router-dom";
-
-// Library
+import React, { useEffect } from "react";
+import { useFetcher } from "react-router-dom";
 import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
-
 
 function AddBudgetForm() {
     const fetcher = useFetcher();
     const isSubmitting = fetcher.state === "submitting";
 
-    const formRef = useRef();
-    const focusRef = useRef();
+    const formRef = React.useRef<HTMLFormElement>() as React.MutableRefObject<HTMLFormElement>;
+    const focusRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
 
     useEffect(() => {
         if(!isSubmitting) {
-            formRef.current.reset();
-            focusRef.current.focus();
+            formRef.current?.reset();
+            focusRef.current?.focus();
         }
     }, [isSubmitting]);
 
@@ -34,7 +28,7 @@ function AddBudgetForm() {
                 
                 <div className="grid-xs">
                     <label htmlFor="newBudgetAmount">Amount</label>
-                    <input type="number" step="0.01" name="newBudgetAmount" id="newBudgetAmount" placeholder="e.g. $350" required inputMode="decimal" />
+                    <input type="number" step="0.01" name="newBudgetAmount" id="newBudgetAmount" placeholder="e.g. $350" required inputMode="decimal" ref={focusRef} />
                 </div>
 
                 <input type="hidden" name="_action" value="createBudget" />

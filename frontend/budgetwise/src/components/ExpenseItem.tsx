@@ -1,25 +1,41 @@
+import { useEffect, useState } from "react";
 import { Link, useFetcher } from "react-router-dom";
-import { formatCurrency, formatDateToLocalString, getAllMatchingItems } from "../helpers";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-function ExpenseItem({ expense, showBudget = true }) {
-    const fetcher = useFetcher();
+import { formatCurrency, formatDateToLocalString } from "../utils/helpers";
+import { getBudgetById } from "../utils/api";
+import { Budget, Color, Expense } from "../utils/interfaces";
 
-    const budget = getAllMatchingItems({
-        category: "budgets",
-        key: "id",
-        value: expense.budgetId
-    })[0];
+function ExpenseItem({ expense, showBudget = true } : { expense: Expense, showBudget: boolean }) {
+    const fetcher = useFetcher();
+    const budgetId = expense.budgetId;
+
+    const [budget, setBudget] = useState<Budget>({} as Budget);
+    const [color, setColor] = useState("");
+
+    const customStyle = {"--accent": color} as React.CSSProperties;
+
+    useEffect(() => {
+        const getBudget = async () => {
+            const budget = await getBudgetById(budgetId);
+            setBudget(budget);
+            const colors = JSON.parse(localStorage.getItem("colors")!);
+            setColor(colors.find((color: Color) => color.id === budgetId)?.color);
+
+        }
+
+        getBudget();
+    }, [budgetId]);
 
     return (
         <>
             <td>{expense.name}</td>
-            <td>{formatCurrency(expense.ammount)}</td>
-            <td>{formatDateToLocalString(expense.createdAt)}</td>
+            <td>{formatCurrency(expense.amount)}</td>
+            <td>{formatDateToLocalString(Date.parse(expense.createdAt))}</td>
             
             {showBudget && (
                 <td>
-                    <Link to={`/budget/${budget.id}`} style={{"--accent": budget.color}}>{budget.name}</Link>
+                    { budget && <Link to={`/budget/${budget.id}`} style={customStyle}>{budget.name}</Link> }
                 </td>
             )}
             

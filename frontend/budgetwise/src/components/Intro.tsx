@@ -1,30 +1,30 @@
-import { Form } from "react-router-dom";
-
-// Library
-import { UserPlusIcon } from "@heroicons/react/24/solid";
-
-// assets
-import illustration from "../assets/illustration.jpg";
+import { Form, NavLink } from "react-router-dom";
+import { ArrowRightEndOnRectangleIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 
 function Intro() {
     return (
         <div className="intro">
             <div>
-                <h1>Take Control of <span className="accent">Your Money</span></h1>
-                <p>Personal budgeting is the secret to financial freedom. Start your journey today.</p>
+                <h1>Welcome to <span className="accent">BudgetWise</span></h1>
+
+                <p></p><p></p>
 
                 <Form method="post" >
                     <input type="text" name="username" required placeholder="What is your name?" aria-label="Your name" autoComplete="given-name" />
+                    <input type="password" name="password" required placeholder="What is your password?" aria-label="Your password" />
                     <input type="hidden" name="_action" value="newUser" />
-                    <button type="submit" className="btn btn--dark">
-                        <span>Create account</span>
-                        <UserPlusIcon width={20} />
-                    </button>
-
+                    <div className="login-inputs">
+                        <button type="submit" className="btn btn--dark">
+                            <span>Login</span>
+                            <ArrowRightEndOnRectangleIcon width={20} />
+                        </button>
+                        <NavLink to="/register" className="btn btn--dark">
+                            <span>Register</span>
+                            <UserPlusIcon width={20} />
+                        </NavLink>
+                    </div>
                 </Form>
             </div>
-
-            <img src={illustration} alt="Person with money" width={600} />
         </div>
     );
 }

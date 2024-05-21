@@ -65,3 +65,7 @@ Vbudgetwise-users/src/main/java/com/ubb/budgetwise_users/repository/UserReposito
 Pbudgetwise-users/src/main/java/com/ubb/budgetwise_users/service/UserService.java,6\a\6ac7ce50ae2332e072eb6c2ef819b74814fe92ed
 Ü
 Vbudgetwise-users/src/main/java/com/ubb/budgetwise_users/controller/UserController.java,7\4\74b7e79abca1d27af0325792c239fe15e760292f
+L
+budgetwise-expenses/mvnw.cmd,8\0\80e280faaad1c9c70aa38b2abbaacaaab1145ae5
+Å
+Qbudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/dto/AddUserDto.java,5\e\5e489db67921f16878c01147955c52d3c738d596

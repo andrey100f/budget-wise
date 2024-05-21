@@ -1,34 +1,36 @@
-// react-router-dom imports
 import { Form, NavLink } from "react-router-dom";
+import { ArrowLeftStartOnRectangleIcon, CogIcon } from "@heroicons/react/24/solid";
 
-// Library
-import { TrashIcon } from "@heroicons/react/16/solid";
-
-// assets
 import logomark from "../assets/logomark.svg";
 
-function Nav({ username }) {
+function Nav({ username } : { username: string }) {
     return (
         <nav>
-            <NavLink to="/" aria-label="Go to home">
-                <img src={logomark} alt="" height={30} />
-                <span>BudgetWise</span>
-            </NavLink>
+            { username && (
+                <>
+                    <NavLink to="/" aria-label="Go to home">
+                        <img src={logomark} alt="" height={30} />
+                        <span>BudgetWise</span>
+                    </NavLink>
 
-            {
-                username && (
                     <Form method="post" action="logout" onSubmit={(event) => {
                         if(!confirm("Are you sure you want to delete your account?")) {
                             event.preventDefault();
                         }
-                    }}>
-                        <button type="submit" className="btn btn--warning">
-                            <span>Delete User</span>
-                            <TrashIcon width={20} />
-                        </button>
+                        }}>
+                        <div className="user-details">
+                            <NavLink to="/edit" className="btn btn--dark">
+                                <span>User Settings</span>
+                                <CogIcon width={20} />
+                            </NavLink>
+                            <button type="submit" className="btn btn--warning">
+                                <span>Logout</span>
+                                <ArrowLeftStartOnRectangleIcon width={20} />
+                            </button>
+                        </div>
                     </Form>
-                )
-            }
+                </>
+            )}
         </nav>
     );
 }
