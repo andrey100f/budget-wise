@@ -69,3 +69,5 @@ L
 budgetwise-expenses/mvnw.cmd,8\0\80e280faaad1c9c70aa38b2abbaacaaab1145ae5
 Å
 Qbudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/dto/AddUserDto.java,5\e\5e489db67921f16878c01147955c52d3c738d596
+
+Obudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/dto/LoginDto.java,1\3\13541f7f72c0f59115c835b0b368cdfc259aaa89
