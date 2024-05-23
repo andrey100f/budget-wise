@@ -21,6 +21,7 @@ public interface ExpenseMapper {
             .amount(addExpenseDto.amount())
             .createdAt(LocalDate.parse(LocalDate.now().toString(), formatter))
             .budgetId(addExpenseDto.budgetId())
+            .userId(addExpenseDto.userId())
             .build();
     }
 

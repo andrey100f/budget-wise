@@ -8,5 +8,7 @@ public record AddBudgetDto (
     String name,
 
     @Min(1)
-    Float amount
+    Float amount,
+
+    String userId
 ) { }

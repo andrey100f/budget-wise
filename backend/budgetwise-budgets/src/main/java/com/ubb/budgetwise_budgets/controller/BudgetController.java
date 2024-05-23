@@ -2,12 +2,10 @@ package com.ubb.budgetwise_budgets.controller;
 
 import com.ubb.budgetwise_budgets.model.dto.AddBudgetDto;
 import com.ubb.budgetwise_budgets.model.dto.BudgetDto;
-import com.ubb.budgetwise_budgets.model.dto.ExpenseDto;
 import com.ubb.budgetwise_budgets.service.BudgetService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +33,11 @@ public class BudgetController {
     @GetMapping("/{id}")
     public ResponseEntity<BudgetDto> getBudgetById(@PathVariable String id) {
         return ResponseEntity.ok(this.budgetService.getBudgetById(id));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BudgetDto>> getBudgetsByUserId(@PathVariable String userId) {
+        return ResponseEntity.ok(this.budgetService.getBudgetsByUserId(userId));
     }
 
     @PostMapping

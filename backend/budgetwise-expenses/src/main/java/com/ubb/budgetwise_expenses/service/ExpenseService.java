@@ -29,6 +29,12 @@ public class ExpenseService {
             .toList();
     }
 
+    public List<ExpenseDto> getExpensesByUser(String userId) {
+        return this.expenseRepository.findAllByUserId(userId).stream()
+            .map(this.expenseMapper::mapToDto)
+            .toList();
+    }
+
     public ExpenseDto addExpense(AddExpenseDto expense) {
         return Optional.of(expense)
             .map(this.expenseMapper::mapFromAddDtoToModel)

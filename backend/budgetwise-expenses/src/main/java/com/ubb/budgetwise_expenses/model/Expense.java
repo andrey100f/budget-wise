@@ -40,4 +40,7 @@ public class Expense implements Serializable {
     @Column(name = "budget_id")
     private String budgetId;
 
+    @Column(name = "user_id")
+    private String userId;
+
 }

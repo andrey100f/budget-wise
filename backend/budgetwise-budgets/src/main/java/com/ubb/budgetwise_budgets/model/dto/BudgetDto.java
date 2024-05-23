@@ -10,5 +10,6 @@ public record BudgetDto(
     String name,
     Float amount,
     String createdAt,
+    String userId,
     List<ExpenseDto> expenses
 ) { }

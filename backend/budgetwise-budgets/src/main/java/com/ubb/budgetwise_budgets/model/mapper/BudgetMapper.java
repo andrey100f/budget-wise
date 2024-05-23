@@ -18,6 +18,7 @@ public interface BudgetMapper {
         return Budget.builder()
             .name(addBudgetDto.name())
             .amount(addBudgetDto.amount())
+            .userId(addBudgetDto.userId())
             .createdAt(LocalDate.parse(LocalDate.now().toString(), formatter))
             .build();
     }

@@ -12,5 +12,7 @@ public record AddExpenseDto(
     Float amount,
 
     @NotBlank
-    String budgetId
+    String budgetId,
+
+    String userId
 ) { }

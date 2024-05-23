@@ -37,4 +37,7 @@ public class Budget implements Serializable {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @Column(name = "user_id")
+    private String userId;
+
 }
