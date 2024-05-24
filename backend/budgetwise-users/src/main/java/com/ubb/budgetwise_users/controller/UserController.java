@@ -4,6 +4,7 @@ import com.ubb.budgetwise_users.model.dto.AddUserDto;
 import com.ubb.budgetwise_users.model.dto.LoginDto;
 import com.ubb.budgetwise_users.model.dto.UserDto;
 import com.ubb.budgetwise_users.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,14 +38,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> addUser(@RequestBody AddUserDto userDto) throws URISyntaxException {
+    public ResponseEntity<UserDto> addUser(@Valid @RequestBody AddUserDto userDto) throws URISyntaxException {
         UserDto newUser = this.userService.addUser(userDto);
         return ResponseEntity.created(new URI("/api/users/" + newUser.id()))
             .body(newUser);
     }
 
     @PutMapping
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto user) {
         return ResponseEntity.ok(this.userService.updateUser(user));
     }
 
