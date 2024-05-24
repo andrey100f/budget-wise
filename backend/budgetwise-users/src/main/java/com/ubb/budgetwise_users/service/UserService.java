@@ -45,4 +45,8 @@ public class UserService {
             .orElseThrow();
     }
 
+    public void deleteUser(String id) {
+        this.userRepository.deleteById(id);
+    }
+
 }

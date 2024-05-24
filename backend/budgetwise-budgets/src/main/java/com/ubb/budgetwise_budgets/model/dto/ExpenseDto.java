@@ -4,6 +4,8 @@ public record ExpenseDto(
     String id,
     String name,
     Float amount,
-    String createdAt
+    String createdAt,
+    String userId,
+    String budgetId
 ) {
 }

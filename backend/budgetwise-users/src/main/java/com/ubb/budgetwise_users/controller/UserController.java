@@ -6,7 +6,9 @@ import com.ubb.budgetwise_users.model.dto.UserDto;
 import com.ubb.budgetwise_users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +46,12 @@ public class UserController {
     @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto user) {
         return ResponseEntity.ok(this.userService.updateUser(user));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        this.userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

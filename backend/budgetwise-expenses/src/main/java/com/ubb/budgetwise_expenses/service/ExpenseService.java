@@ -1,7 +1,11 @@
 package com.ubb.budgetwise_expenses.service;
 
+import com.ubb.budgetwise_expenses.client.BudgetClient;
+import com.ubb.budgetwise_expenses.model.Expense;
 import com.ubb.budgetwise_expenses.model.dto.AddExpenseDto;
+import com.ubb.budgetwise_expenses.model.dto.BudgetDto;
 import com.ubb.budgetwise_expenses.model.dto.ExpenseDto;
+import com.ubb.budgetwise_expenses.model.exception.InvalidResourceException;
 import com.ubb.budgetwise_expenses.model.mapper.ExpenseMapper;
 import com.ubb.budgetwise_expenses.repository.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,7 @@ public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final ExpenseMapper expenseMapper;
+    private final BudgetClient budgetClient;
 
     public List<ExpenseDto> getAllExpenses() {
         return this.expenseRepository.findAll().stream()
@@ -36,6 +41,8 @@ public class ExpenseService {
     }
 
     public ExpenseDto addExpense(AddExpenseDto expense) {
+        this.validateExpense(expense);
+
         return Optional.of(expense)
             .map(this.expenseMapper::mapFromAddDtoToModel)
             .map(this.expenseRepository::save)
@@ -45,6 +52,17 @@ public class ExpenseService {
 
     public void deleteExpense(String id) {
         this.expenseRepository.deleteById(id);
+    }
+
+    private void validateExpense(AddExpenseDto expense) {
+        Float totalExpenses = this.expenseRepository.findAllByBudgetId(expense.budgetId()).stream()
+            .map(Expense::getAmount)
+            .reduce(0f, Float::sum);
+        BudgetDto budget = this.budgetClient.findBudgetById(expense.budgetId());
+
+        if (totalExpenses + expense.amount() > budget.amount()) {
+            throw new InvalidResourceException("Total expenses exceed budget amount");
+        }
     }
 
 }

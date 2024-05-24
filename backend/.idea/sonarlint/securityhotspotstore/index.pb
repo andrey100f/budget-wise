@@ -71,3 +71,13 @@ L
 Qbudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/dto/AddUserDto.java,5\e\5e489db67921f16878c01147955c52d3c738d596
 
 Obudgetwise-users/src/main/java/com/ubb/budgetwise_users/model/dto/LoginDto.java,1\3\13541f7f72c0f59115c835b0b368cdfc259aaa89
+á
+Wbudgetwise-users/src/main/java/com/ubb/budgetwise_users/BudgetwiseUsersApplication.java,6\9\69a45c6c38e6da2b7ab629f8594089729a20d730
+Ü
+Vbudgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/client/BudgetClient.java,7\3\737cde0d9bfa8897bfca7bf7002d99ef3e22f241
+ê
+`budgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/BudgetwiseExpensesApplication.java,3\7\3793b5ce9980b49e0bc9c6b8af24d20b18b2475f
+õ
+kbudgetwise-expenses/src/main/java/com/ubb/budgetwise_expenses/model/exception/InvalidResourceException.java,4\c\4c2931bd82fb47595926af582e1d662314e1b9c4
+é
+^budgetwise-users/src/main/java/com/ubb/budgetwise_users/controller/GlobalExceptionHandler.java,e\7\e7f36836b7e74ef6d0e1379b234e02f5dea79877
