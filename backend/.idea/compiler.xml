@@ -10,8 +10,9 @@
         <module name="budgetwise-discovery" />
         <module name="budgetwise-config-server" />
         <module name="budgetwise-gateway" />
+        <module name="budgetwise-auth" />
       </profile>
-      <profile name="Annotation profile for budgetwise-expenses" enabled="true">
+      <profile name="Annotation profile for budgetwise-users" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -29,6 +30,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="budgetwise-auth" options="-parameters" />
       <module name="budgetwise-budgets" options="-parameters" />
       <module name="budgetwise-config-server" options="-parameters" />
       <module name="budgetwise-discovery" options="-parameters" />

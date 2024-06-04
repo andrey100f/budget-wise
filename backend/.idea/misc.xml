@@ -10,6 +10,9 @@
         <option value="$PROJECT_DIR$/budgetwise-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/budgetwise-expenses/pom.xml" />
         <option value="$PROJECT_DIR$/budgetwise-users/pom.xml" />
+        <option value="$PROJECT_DIR$/bugetwise_auth/pom.xml" />
+        <option value="$PROJECT_DIR$/budgetwise_auth/pom.xml" />
+        <option value="$PROJECT_DIR$/budgetwise-auth/pom.xml" />
       </list>
     </option>
   </component>

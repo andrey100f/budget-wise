@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: auth
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
+server:
+  port: 8050
+jwt:
+  secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
+  expiration: 86400
+application:
+  config:
+    users-url: http://localhost:8060/api/users

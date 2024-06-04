@@ -24,6 +24,12 @@ public class UserService {
             .toList();
     }
 
+    public UserDto getUserById(String id) {
+        return this.userRepository.findById(id)
+            .map(this.userMapper::mapDtoDto)
+            .orElseThrow();
+    }
+
     public UserDto addUser(AddUserDto userDto) {
         return Optional.of(userDto)
             .map(this.userMapper::mapFromAddDtoToModel)

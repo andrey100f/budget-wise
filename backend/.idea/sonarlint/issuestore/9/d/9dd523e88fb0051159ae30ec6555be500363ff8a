@@ -1,0 +1,17 @@
+
+}
+java:S1874"5Remove this use of "setSigningKey"; it is deprecated.(Œ€ÃÙüÿÿÿÿ8™Ëßøı1J$ac045c73-a0b4-4881-9059-65b2c7c0176e
+~
+java:S1874"6Remove this use of "parseClaimsJwt"; it is deprecated.(Œ€ÃÙüÿÿÿÿ8™Ëßøı1J$a1d7d209-49c2-40d6-bf47-d61820ed4a0e
+w
+java:S1874"/Remove this use of "getBody"; it is deprecated.(Œ€ÃÙüÿÿÿÿ8™Ëßøı1J$d58170dd-e6f4-4094-aeb5-53fe76f2d4a1
+r
+java:S1172&"/Remove this unused method parameter "username".(†Ÿ°ä8ãµàøı1J$27d3dea4-fed9-4d94-84da-b9bcab1d1d39
+y
+java:S18741"1Remove this use of "setClaims"; it is deprecated.(æõíûúÿÿÿÿ8Ëßøı1J$7e50b096-0372-495a-8f52-7fe1de69d00a
+z
+java:S18742"2Remove this use of "setSubject"; it is deprecated.(Í°ˆ‘ıÿÿÿÿ8Ëßøı1J$d2d33b90-dd87-4972-84a7-6d31021faac0
+v
+java:S18743"3Remove this use of "setIssuedAt"; it is deprecated.(çĞ÷’8Ëßøı1J$8279a3c4-a77f-41c8-9ffb-0744db7bdb6e
+w
+java:S18744"5Remove this use of "setExpiration"; it is deprecated.(Ğş£(8Ëßøı1J$772af2fe-0d53-404c-9899-9d7d4b9a10e5

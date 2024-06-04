@@ -5,3 +5,5 @@ spring:
     import: optional:configserver:http://localhost:8888
 server:
   port: 8222
+jwt:
+  secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
