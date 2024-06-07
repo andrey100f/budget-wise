@@ -34,7 +34,8 @@ export const deleteItem = ({key, id} : DeleteItemArgs) => {
 }
 
 export const calculateSpentByBudget = async (budgetId : string) => {
-    const expenses = await getAllExpenses();
+    const token = fetchData("token");
+    const expenses = await getAllExpenses(token);
     
     const budgetSpent = expenses.reduce((acc : number, expenese : Expense) => {
         if(expenese.budgetId !== budgetId) {

@@ -10,10 +10,10 @@ import { deleteItem } from "../utils/helpers";
 export async function logoutAction() {
     // delete the user
     deleteItem({ key: "username" });
-    deleteItem({ key: "budgets" });
-    deleteItem({ key: "expenses" });
+    deleteItem({ key: "user" });
+    deleteItem({ key: "token" });
 
-    toast.success("You've deleted your account!!");
+    toast.success("You've logged out!!");
 
     return redirect("/");
 }

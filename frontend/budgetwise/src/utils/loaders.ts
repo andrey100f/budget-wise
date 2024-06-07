@@ -1,16 +1,17 @@
 import { LoaderFunctionArgs } from "react-router-dom";
 
 import { fetchData, setColors } from "./helpers";
-import { getBudgetById, getAllBudgets, getAllExpenses } from "./api";
+import { getBudgetById, getBudgetsByUserId, getExpensesByBudgetId, getExpensesByUserId } from "./api";
 import { BudgetLoaderParams } from "./interfaces";
 
 export function editLoader() {
-    const username = fetchData("username");
+    const username = fetchData("username") ? fetchData("username") : "";
     return { username };
 }
 
 export async function budgetLoader({ params } : LoaderFunctionArgs | { params: BudgetLoaderParams }) {
-    const budget = await getBudgetById(params.id as string);
+    const token = fetchData("token");
+    const budget = await getBudgetById(params.id as string, token);
     const expenses = budget.expenses;
 
     if(!budget) {
@@ -22,15 +23,27 @@ export async function budgetLoader({ params } : LoaderFunctionArgs | { params: B
 
 export async function dashboardLoader() {
     const username = fetchData("username");
-    const budgets = await getAllBudgets();
+    const user = fetchData("user");
+    const token = fetchData("token");
+
+    let budgets = [];
+    let expenses = [];
+
+    if(user) {
+        budgets = await getBudgetsByUserId(user.id, token);
+        expenses = await getExpensesByUserId(user.id, token);
+    }
+   
     setColors(budgets);
-    const expenses = await getAllExpenses();
 
     return { username, budgets, expenses };
 }
 
 export async function expensesLoader() {
-    const expenses = await getAllExpenses();
+    const token = fetchData("token");
+    const user = fetchData("user");
+
+    const expenses = await getExpensesByBudgetId(user.id, token);
     return { expenses };
 }
 

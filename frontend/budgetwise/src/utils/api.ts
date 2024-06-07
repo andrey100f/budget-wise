@@ -1,8 +1,10 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const budgetsUrl = "http://localhost:8222/api/budgets";
 const expensesUrl = "http://localhost:8222/api/expenses";
 const usersUrl = "http://localhost:8222/api/users";
+const authUrl = "http://localhost:8222/api/auth";
 
 const config = {
     headers: {
@@ -10,9 +12,18 @@ const config = {
     }
 };
 
-export const getAllBudgets = async () => {
+const securityConfig = (token: string) => {
+    return {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    };
+}
+
+export const getAllBudgets = async (token: string) => {
     try {
-        const res = await axios.get(budgetsUrl);
+        const res = await axios.get(budgetsUrl, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {
@@ -20,9 +31,9 @@ export const getAllBudgets = async () => {
     }
 }
 
-export const getBudgetById = async (id: string) => {
+export const getBudgetById = async (id: string, token: string) => {
     try {
-        const res = await axios.get(`${budgetsUrl}/${id}`);
+        const res = await axios.get(`${budgetsUrl}/${id}`, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {
@@ -30,9 +41,9 @@ export const getBudgetById = async (id: string) => {
     }
 }
 
-export const getAllExpenses = async () => {
+export const getAllExpenses = async (token: string) => {
     try {
-        const res = await axios.get(`${expensesUrl}`);
+        const res = await axios.get(`${expensesUrl}`, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {
@@ -40,9 +51,9 @@ export const getAllExpenses = async () => {
     }
 }
 
-export const deleteExpense = async (id : string) => {
+export const deleteExpense = async (id : string, token: string) => {
     try {
-        const res = await axios.delete(`${expensesUrl}/${id}`);
+        const res = await axios.delete(`${expensesUrl}/${id}`, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {
@@ -50,9 +61,9 @@ export const deleteExpense = async (id : string) => {
     }
 }
 
-export const createBudget = async ({name, amount} : {name: string, amount: number}) => {
+export const createBudget = async ({name, amount} : {name: string, amount: number}, token: string) => {
     try {
-        const res = await axios.post(budgetsUrl, {name, amount}, config);
+        const res = await axios.post(budgetsUrl, {name, amount}, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {
@@ -60,9 +71,9 @@ export const createBudget = async ({name, amount} : {name: string, amount: numbe
     }
 }
 
-export const createExpense = async ({name, amount, budgetId} : {name: string, amount: number, budgetId: string}) => {
+export const createExpense = async ({name, amount, budgetId} : {name: string, amount: number, budgetId: string}, token: string) => {
     try {
-        const res = await axios.post(expensesUrl, {name, amount: amount, budgetId}, config);
+        const res = await axios.post(expensesUrl, {name, amount: amount, budgetId}, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {
@@ -72,7 +83,7 @@ export const createExpense = async ({name, amount, budgetId} : {name: string, am
 
 export const createUser = async({username, password} : {username: string, password: string}) => {
     try {
-        const res = await axios.post(`${usersUrl}`, {username, password}, config);
+        const res = await axios.post(`${authUrl}/register`, {username, password}, config);
         return Promise.resolve(res.data);
     }
     catch(err) {
@@ -80,9 +91,83 @@ export const createUser = async({username, password} : {username: string, passwo
     }
 }
 
-export const deleteBudget = async(id : string) => {
+export const deleteBudget = async(id : string, token: string) => {
     try {
-        const res = await axios.delete(`${budgetsUrl}/${id}`);
+        const res = await axios.delete(`${budgetsUrl}/${id}`, securityConfig(token));
+        return Promise.resolve(res.data);
+    }
+    catch(err) {
+        return Promise.reject(err);
+    }
+}
+
+export const loginUser = async({username, password} : {username: string, password: string}) => {
+    try {
+        const res = await axios.post(`${authUrl}/login`, {username, password}, config);
+        const decodedToken = jwtDecode(res.data.accessToken) as {id: string};
+        const user = await getUserById(decodedToken.id, res.data.accessToken);
+
+        localStorage.setItem("user", JSON.stringify(user));
+        return Promise.resolve(res.data);
+    }
+    catch(err) {
+        return Promise.reject(err);
+    }
+}
+
+export const getUserById = async(id : string, token: string) => {
+    try {
+        const res = await axios.get(`${usersUrl}/${id}`, securityConfig(token));
+        return Promise.resolve(res.data);
+    }
+    catch(err) {
+        return Promise.reject(err);
+    }
+}
+
+export const getExpensesByBudgetId = async(id : string, token: string) => {
+    try {
+        const res = await axios.get(`${expensesUrl}/budget/${id}`, securityConfig(token));
+        return Promise.resolve(res.data);
+    }
+    catch(err) {
+        return Promise.reject(err);
+    }
+}
+
+export const getBudgetsByUserId = async(id : string, token: string) => {
+    try {
+        const res = await axios.get(`${budgetsUrl}/user/${id}`, securityConfig(token));
+        return Promise.resolve(res.data);
+    }
+    catch(err) {
+        return Promise.reject(err);
+    }
+}
+
+export const updateUser = async({id, username, password} : {id: string, username: string, password: string}, token: string) => {
+    try {
+        const res = await axios.put(`${usersUrl}`, {id, username, password}, securityConfig(token));
+        return Promise.resolve(res.data);
+    }
+    catch(err) {
+        return Promise.reject(err);
+    }
+}
+
+export const deleteUser = async(id : string, token: string) => {
+    try {
+        const res = await axios.delete(`${usersUrl}/${id}`, securityConfig(token));
+        return Promise.resolve(res.data);
+    }
+    catch(err) {
+        return Promise.reject(err);
+    }
+}
+
+export const getExpensesByUserId = async(id : string, token: string) => {
+    try {
+        const res = await axios.get(`${expensesUrl}/user/${id}`, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {

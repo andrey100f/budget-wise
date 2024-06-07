@@ -1,31 +1,35 @@
 import { useEffect, useState } from "react";
-import { Link, useFetcher } from "react-router-dom";
+import { Link, useFetcher, useParams, useLocation } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-import { formatCurrency, formatDateToLocalString } from "../utils/helpers";
+import { fetchData, formatCurrency, formatDateToLocalString } from "../utils/helpers";
 import { getBudgetById } from "../utils/api";
 import { Budget, Color, Expense } from "../utils/interfaces";
 
 function ExpenseItem({ expense, showBudget = true } : { expense: Expense, showBudget: boolean }) {
     const fetcher = useFetcher();
-    const budgetId = expense.budgetId;
-
     const [budget, setBudget] = useState<Budget>({} as Budget);
     const [color, setColor] = useState("");
+
+    const {id: testBudgetId } = useParams();
+    const location = useLocation(); 
+
+    const budgetId = expense.budgetId; 
+    const token = fetchData("token");
 
     const customStyle = {"--accent": color} as React.CSSProperties;
 
     useEffect(() => {
         const getBudget = async () => {
-            const budget = await getBudgetById(budgetId);
+            if(budgetId === testBudgetId && location.pathname == "/") return;
+            const budget = await getBudgetById(budgetId, token);
             setBudget(budget);
             const colors = JSON.parse(localStorage.getItem("colors")!);
             setColor(colors.find((color: Color) => color.id === budgetId)?.color);
-
         }
 
         getBudget();
-    }, [budgetId]);
+    });
 
     return (
         <>
@@ -43,6 +47,7 @@ function ExpenseItem({ expense, showBudget = true } : { expense: Expense, showBu
                 <fetcher.Form method="post">
                     <input type="hidden" name="_action" value="deleteExpense" />
                     <input type="hidden" name="expenseId" value={expense.id} />
+                    <input type="hidden" name="budgetId" value={budgetId} />
                     <button type="submit" className="btn btn--warning" aria-label={`Delete ${expense.name} expense`}>
                         <TrashIcon width={20} />
                     </button>

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { BanknotesIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 import { calculateSpentByBudget, fetchData, formatCurrency, formatPercentage } from "../utils/helpers";
-import { deleteBudget } from "../utils/api";
+import { deleteBudget, getBudgetById, deleteExpense } from "../utils/api";
 import { Budget, Color } from "../utils/interfaces";
 
 function BudgetItem({ budget, showDelete = false } : { budget: Budget, showDelete?: boolean }) {
@@ -27,9 +27,16 @@ function BudgetItem({ budget, showDelete = false } : { budget: Budget, showDelet
     async function handleDeleteBudget(event : React.MouseEvent<HTMLButtonElement>) {
         if(confirm("Are you sure you want to delete this budget?")) {
             event.preventDefault();
-            await deleteBudget(id);
-            toast.success("Budget deleted successfully!");
+            const token = fetchData("token");
+            const budget = await getBudgetById(id, token);
+
+            for(const expense of budget.expenses) {
+                await deleteExpense(expense.id, token);
+            }
+
+            await deleteBudget(id, token);
             navigate("/");
+            toast.success("Budget deleted successfully!");
         }
     }
 
