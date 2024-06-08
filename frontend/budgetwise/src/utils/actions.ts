@@ -104,14 +104,18 @@ export async function dashboardAction({ request } : { request: Request }) {
     }
 
     if(_action === "createBudget") {
+        const user = fetchData("user");
+
         try {
             const budget = {
                 name: values.newBudget as string,
-                amount: Number.parseFloat(values.newBudgetAmount as string)
+                amount: Number.parseFloat(values.newBudgetAmount as string),
+                userId: user.id
             }
             const token = fetchData("token");
 
-            await createBudget(budget, token);
+            const addedBudget = await createBudget(budget, token);
+            console.log(addedBudget);
             dashboardLoader();
 
             return toast.success(`Budget created!`);
