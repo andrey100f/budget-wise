@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useFetcher, useLocation } from "react-router-dom";
+import { Link, useFetcher, useLocation, useParams } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { fetchData, formatCurrency, formatDateToLocalString } from "../utils/helpers";
@@ -11,6 +11,8 @@ function ExpenseItem({ expense, showBudget = true } : { expense: Expense, showBu
     const [budget, setBudget] = useState<Budget>({} as Budget);
     const [color, setColor] = useState("");
 
+    const { id: testBudgetId } = useParams();
+
     const location = useLocation(); 
 
     const budgetId = expense.budgetId; 
@@ -20,7 +22,7 @@ function ExpenseItem({ expense, showBudget = true } : { expense: Expense, showBu
 
     useEffect(() => {
         const getBudget = async () => {
-            if(location.pathname == "/") return;
+            if(location.pathname == "/" && budgetId === testBudgetId) return;
             const budget = await getBudgetById(budgetId, token);
             setBudget(budget);
             const colors = JSON.parse(localStorage.getItem("colors")!);

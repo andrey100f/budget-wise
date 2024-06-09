@@ -48,11 +48,13 @@ export async function budgetAction({ request } : { request: Request }) {
     const {_action, ...values} = Object.fromEntries(data);
 
     if(_action === "createExpense") {
+        const user = fetchData("user");
         try {
             const expense = {
                 name: values.newExpense as string,
                 amount: Number.parseFloat(values.newExpenseAmount as string),
-                budgetId: values.newExpenseBudget as string
+                budgetId: values.newExpenseBudget as string,
+                userId: user.id
             };
 
             const token = fetchData("token");
@@ -114,8 +116,7 @@ export async function dashboardAction({ request } : { request: Request }) {
             }
             const token = fetchData("token");
 
-            const addedBudget = await createBudget(budget, token);
-            console.log(addedBudget);
+            await createBudget(budget, token);
             dashboardLoader();
 
             return toast.success(`Budget created!`);
@@ -127,11 +128,13 @@ export async function dashboardAction({ request } : { request: Request }) {
     }
 
     if(_action === "createExpense") {
+        const user = fetchData("user");
         try {
             const expense = {
                 name: values.newExpense as string,
                 amount: Number.parseFloat(values.newExpenseAmount as string),
-                budgetId: values.newExpenseBudget as string
+                budgetId: values.newExpenseBudget as string,
+                userId: user.id
             }
             const token = fetchData("token");
 
@@ -152,7 +155,7 @@ export async function dashboardAction({ request } : { request: Request }) {
             await deleteExpense(values.expenseId as string, token);
             dashboardLoader();
 
-            return toast.success(`Expense deleted!`, {theme: "colored"});
+            return toast.success(`Expense deleted!`);
         }
         catch(error) {
             throw new Error("There was a problem deleting your expense..."); 

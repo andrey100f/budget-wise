@@ -1,10 +1,10 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-const budgetsUrl = "https://budgetwise-gateway-production.up.railway.app/api/budgets";
-const expensesUrl = "https://budgetwise-gateway-production.up.railway.app/api/expenses";
-const usersUrl = "https://budgetwise-gateway-production.up.railway.app/api/users";
-const authUrl = "https://budgetwise-gateway-production.up.railway.app/api/auth";
+const budgetsUrl = "http://localhost:8222/api/budgets";
+const expensesUrl = "http://localhost:8222/api/expenses";
+const usersUrl = "http://localhost:8222/api/users";
+const authUrl = "http://localhost:8222/api/auth";
 
 const config = {
     headers: {
@@ -71,9 +71,9 @@ export const createBudget = async ({name, amount, userId} : {name: string, amoun
     }
 }
 
-export const createExpense = async ({name, amount, budgetId} : {name: string, amount: number, budgetId: string}, token: string) => {
+export const createExpense = async ({name, amount, budgetId, userId} : {name: string, amount: number, budgetId: string, userId: string}, token: string) => {
     try {
-        const res = await axios.post(expensesUrl, {name, amount: amount, budgetId}, securityConfig(token));
+        const res = await axios.post(expensesUrl, {name, amount: amount, budgetId, userId}, securityConfig(token));
         return Promise.resolve(res.data);
     }
     catch(err) {

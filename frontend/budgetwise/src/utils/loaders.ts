@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs } from "react-router-dom";
 
 import { fetchData, setColors } from "./helpers";
-import { getBudgetById, getBudgetsByUserId, getExpensesByBudgetId, getExpensesByUserId } from "./api";
+import { getBudgetById, getBudgetsByUserId, getExpensesByUserId } from "./api";
 import { BudgetLoaderParams } from "./interfaces";
 
 export function editLoader() {
@@ -43,7 +43,7 @@ export async function expensesLoader() {
     const token = fetchData("token");
     const user = fetchData("user");
 
-    const expenses = await getExpensesByBudgetId(user.id, token);
+    const expenses = await getExpensesByUserId(user.id, token);
     return { expenses };
 }
 
